@@ -1,95 +1,104 @@
-<html>
-    <head>
-        <title>Dino Game - WEB IT Team</title>
-        <meta charset="ute-8">
-        <meta name="viewport" content="width=device-width, initial scale=1.0">
-        <link rel="stylesheet" href="stylez.css">
-    </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dino Game - WEB IT Team</title>
     <style>
-        .game{
-    width: 600px;
-    height: 200px;
-    border-block: 1px solid black ;
-    margin: auto;
-}
-#dino{
-    width: 50px;
-    height: 50px;
-    background-image: url(dino2.png);
-    background-size: 50px 50px;
-    position: relative;
-    top: 150px;
-}
-#cactus{
-    width: 20px;
-    height: 40px;
-    background-image: url(cactus.png);
-    background-size: 20px 40px;
-    position: relative;
-    top: 110px;
-    left: 580px;
-    animation: cactusMov 1s infinite linear;
-}
-@keyframes cactusMov{
-    0%{
-        left: 580;
-    }
-    100%{
-        left: -20px;
-    }
-}
-.jump{
-    animation: jump 0.5s linear;
-}
-@keyframes jump{
-    0%{
-        top: 150px;
-    }
-    30%{
-        top: 130px;
-    }
-    50%{
-        top: 80px;
-    }
-    80%{
-        top: 130px;
-    }
-    100%{
-        top: 150px;
-    }
-}
+        .game {
+            width: 600px;
+            height: 200px;
+            border: 1px solid black;
+            margin: auto;
+            position: relative;
+            overflow: hidden;
+        }
+        #dino {
+            width: 50px;
+            height: 50px;
+            background-image: url(dino2.png);
+            background-size: 50px 50px;
+            position: absolute;
+            top: 150px;
+            left: 50px;
+        }
+        #cactus {
+            width: 20px;
+            height: 40px;
+            background-image: url(cactus.png);
+            background-size: 20px 40px;
+            position: absolute;
+            top: 150px;
+            left: 580px;
+            animation: cactusMov 1s infinite linear;
+        }
+        @keyframes cactusMov {
+            0% {
+                left: 580px;
+            }
+            100% {
+                left: -20px;
+            }
+        }
+        .jump {
+            animation: jump 0.5s linear;
+        }
+        @keyframes jump {
+            0% {
+                top: 150px;
+            }
+            30% {
+                top: 130px;
+            }
+            50% {
+                top: 80px;
+            }
+            80% {
+                top: 130px;
+            }
+            100% {
+                top: 150px;
+            }
+        }
     </style>
-    <body>
-        <div class="game">
-            <div id="dino"></div>
-            <div id="cactus"></div>
-        </div>
-        <script>
-            const dino = document.getElementById("dino");
-const cactus = document.getElementById("cactus");
+</head>
+<body>
+    <div class="game">
+        <div id="dino"></div>
+        <div id="cactus"></div>
+    </div>
+    <script>
+        const dino = document.getElementById("dino");
+        const cactus = document.getElementById("cactus");
 
-document.addEventListener("keydown", function(event) {
-    jump();
-});
+        document.addEventListener("keydown", function(event) {
+            jump();
+        });
 
-function jump ( ) {
-   if (dino.classList != "jump"){
-    dino.classList.add("jump")
-   }
-   setTimeout(function() {
-    dino.classList.remove("jump")
-   }, 300)
-}
-let isAlive =setInterval (function (){
-    let dinoTop = parsInt(window.getComputedStyle(dino).getPropertyValue("top"));
-    let cactusLeft = parsInt(window.getComputedStyle(cactus).getPropertyValue("left"));
+        function jump() {
+            if (!dino.classList.contains("jump")) {
+                dino.classList.add("jump");
+                setTimeout(function() {
+                    dino.classList.remove("jump");
+                }, 300);
+            }
+        }
 
-    if (cactusLeft < 50 && cactusLeft > 0 && dinoTop >= 140){
-        alert("Game Over!")
-    }
-}, 10)
+        let isAlive = setInterval(function() {
+            let dinoTop = parseInt(window.getComputedStyle(dino).getPropertyValue("top"));
+            let cactusLeft = parseInt(window.getComputedStyle(cactus).getPropertyValue("left"));
 
-
-        </script>
-    </body>
+            if (cactusLeft < 70 && cactusLeft > 50 && dinoTop >= 140) {
+                clearInterval(isAlive);
+                cactus.style.animation = "none";
+                cactus.style.left = `${cactusLeft}px`;
+                setTimeout(function() {
+                    if (confirm("Game Over! Do you want to play again?")) {
+                        location.reload();
+                    }
+                }, 10);
+            }
+        }, 10);
+    </script>
+</body>
 </html>
