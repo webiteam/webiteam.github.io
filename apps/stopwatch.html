@@ -5,8 +5,90 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stopwatch</title>
-    <link rel="stylesheet" href="style.css">
 </head>
+    <style>
+        *,
+*:before,
+*:after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background:#93f006;
+}
+
+.container {
+    background-color: #fff;
+    width: 40%;
+    min-width: 500px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    padding: 20px 0;
+    padding-bottom: 50px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.338);
+}
+
+.timer-display {
+    position: relative;
+    width: 92%;
+    background: #fff;
+    left: 4%;
+    font-family: 'Roboto mono', monospace;
+    color: #1ce0ca;
+    font-size: 30px;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(65, 5, 145, 0.25);
+}
+
+.buttons {
+    width: 90%;
+    margin: 60px auto 0 auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.buttons button {
+    width: 120px;
+    height: 45px;
+    background-color: #ff00b7;
+    color: #fff;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+.buttons button:nth-last-child(2) {
+    background-color: #93f006;
+}
+
+.buttons button:nth-last-child(1) {
+    background-color: #1ce0ca;
+}
+
+.buttons button:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+.Marka{
+    margin-top: 800px;
+    margin-left: 40%;
+    color: rgb(14, 13, 14);
+}
+.Marka2{
+    margin-left: 37%;
+}
+    </style>
 <body>
     <p class="Marka2">Это простой секундомер на Javascript  css и html но полезный</p>
     <p class="Marka2">Надеюсь он пригодиться вам в повседневной жизни ))</p>
@@ -21,7 +103,57 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        let [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
+let timeRef = document.querySelector(".timer-display");
+let int = null;
+
+document.getElementById("start-timer").addEventListener("click", () => {
+    if(int !== null) {
+        clearInterval(int);
+    }
+    int = setInterval(displayTimer, 10);
+});
+
+document.getElementById("pause-timer").addEventListener("click", () => {
+    clearInterval(int);
+});
+
+document.getElementById("reset-timer").addEventListener("click", () => {
+    clearInterval(int);
+    [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
+    timeRef.innerHTML = "00 : 00 : 00 : 000 ";
+});  
+
+function displayTimer() {
+    milliseconds += 10;
+    if(milliseconds == 1000) {
+        milliseconds = 0;
+        seconds++;
+        if(seconds == 60) {
+            seconds = 0;
+            minutes++;
+            if(minutes == 60) {
+                minutes = 0;
+                hours++;
+            }
+        }
+    }
+
+    let h = hours < 10 ? "0" + hours : hours;
+    let m = minutes < 10 ? "0" + minutes : minutes;
+    let s = seconds < 10 ? "0" + seconds : seconds;
+    let ms = 
+        milliseconds < 10
+        ? "00" + milliseconds
+        : milliseconds < 100
+        ? "0" + milliseconds
+        : milliseconds;
+
+    timeRef.innerHTML = `${h} : ${m} : ${s} : ${ms}`;
+
+}
+    </script>
     <p class="Marka">&copy; 2024 IT team. Все права защищены.</p>
 </body>
 </html>
