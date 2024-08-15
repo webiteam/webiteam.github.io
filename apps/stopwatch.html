@@ -5,97 +5,144 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stopwatch</title>
-    <link rel="shortcut icon" href="/DALL·E 2024-08-15 09.50.25 - A minimalist logo design for a team called 'WEB IT Team' that creates web applications and web games like Snake, Tic-Tac-Toe, and web browsers. The lo.webp">
-</head>
+    <link rel="shortcut icon" href="/DALL·E 2024-08-15 09.50.25 - A minimalist logo design for a team called 'WEB IT Team' that creates web applications and web games like Snake, Tic-Tac-Toe, and web browsers. The lo.webp"> </head>
     <style>
         *,
-*:before,
-*:after {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
+        *::before,
+        *::after {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
 
-body {
-    background:#93f006;
-}
+        body {
+            background: #f0f4f8;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
 
-.container {
-    background-color: #fff;
-    width: 40%;
-    min-width: 500px;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    padding: 20px 0;
-    padding-bottom: 50px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.338);
-}
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
 
-.timer-display {
-    position: relative;
-    width: 92%;
-    background: #fff;
-    left: 4%;
-    font-family: 'Roboto mono', monospace;
-    color: #1ce0ca;
-    font-size: 30px;
-    padding: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    border-radius: 5px;
-    box-shadow: 0 0 20px rgba(65, 5, 145, 0.25);
-}
+        .container {
+            background-color: #ffffff;
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
 
-.buttons {
-    width: 90%;
-    margin: 60px auto 0 auto;
-    display: flex;
-    justify-content: space-around;
-}
+        .timer-display {
+            font-family: 'Roboto Mono', monospace;
+            color: #333;
+            font-size: 40px;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            background: #e3f2fd;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+        }
 
-.buttons button {
-    width: 120px;
-    height: 45px;
-    background-color: #ff00b7;
-    color: #fff;
-    border: none;
-    font-family: 'Poppins', sans-serif;
-    font-size: 18px;
-    border-radius: 5px;
-    cursor: pointer;
-    outline: none;
-}
+        .time-segment {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-.buttons button:nth-last-child(2) {
-    background-color: #93f006;
-}
+        .time-segment span {
+            font-size: 16px;
+            color: #555;
+        }
 
-.buttons button:nth-last-child(1) {
-    background-color: #1ce0ca;
-}
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
 
-.buttons button:hover {
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-}
-.Marka{
-    margin-top: 800px;
-    margin-left: 40%;
-    color: rgb(14, 13, 14);
-}
-.Marka2{
-    margin-left: 37%;
-}
+        .buttons button {
+            flex: 1;
+            padding: 10px 15px;
+            font-size: 18px;
+            margin: 0 5px;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+            transition: background 0.3s ease;
+        }
+
+        .buttons button:nth-child(1) {
+            background-color: #4caf50;
+        }
+
+        .buttons button:nth-child(2) {
+            background-color: #ff9800;
+        }
+
+        .buttons button:nth-child(3) {
+            background-color: #f44336;
+        }
+
+        .buttons button:hover {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 20px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .timer-display {
+                font-size: 30px;
+                padding: 15px;
+            }
+
+            .buttons button {
+                font-size: 16px;
+                padding: 8px;
+            }
+        }
     </style>
+</head>
 <body>
-    <p class="Marka2">Это простой секундомер на Javascript  css и html но полезный</p>
-    <p class="Marka2">Надеюсь он пригодиться вам в повседневной жизни ))</p>
+    <h1>Секундомер</h1>
+
     <div class="container">
         <div class="timer-display">
-            00 : 00 : 00 : 000
+            <div class="time-segment">
+                <div id="hours">00:</div>
+            </div>
+            <div class="time-segment">
+                <div id="minutes">00:</div>
+            </div>
+            <div class="time-segment">
+                <div id="seconds">00:</div>
+
+            </div>
+            <div class="time-segment">
+                <div id="milliseconds">000</div>
+
+            </div>
         </div>
         <div class="buttons">
             <button id="start-timer">Start</button>
@@ -106,55 +153,54 @@ body {
 
     <script>
         let [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
-let timeRef = document.querySelector(".timer-display");
-let int = null;
+        let int = null;
 
-document.getElementById("start-timer").addEventListener("click", () => {
-    if(int !== null) {
-        clearInterval(int);
-    }
-    int = setInterval(displayTimer, 10);
-});
-
-document.getElementById("pause-timer").addEventListener("click", () => {
-    clearInterval(int);
-});
-
-document.getElementById("reset-timer").addEventListener("click", () => {
-    clearInterval(int);
-    [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
-    timeRef.innerHTML = "00 : 00 : 00 : 000 ";
-});  
-
-function displayTimer() {
-    milliseconds += 10;
-    if(milliseconds == 1000) {
-        milliseconds = 0;
-        seconds++;
-        if(seconds == 60) {
-            seconds = 0;
-            minutes++;
-            if(minutes == 60) {
-                minutes = 0;
-                hours++;
+        document.getElementById("start-timer").addEventListener("click", () => {
+            if(int !== null) {
+                clearInterval(int);
             }
+            int = setInterval(displayTimer, 10);
+        });
+
+        document.getElementById("pause-timer").addEventListener("click", () => {
+            clearInterval(int);
+        });
+
+        document.getElementById("reset-timer").addEventListener("click", () => {
+            clearInterval(int);
+            [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
+            document.getElementById("hours").innerText = "00";
+            document.getElementById("minutes").innerText = "00";
+            document.getElementById("seconds").innerText = "00";
+            document.getElementById("milliseconds").innerText = "000";
+        });
+
+        function displayTimer() {
+            milliseconds += 10;
+            if (milliseconds === 1000) {
+                milliseconds = 0;
+                seconds++;
+                if (seconds === 60) {
+                    seconds = 0;
+                    minutes++;
+                    if (minutes === 60) {
+                        minutes = 0;
+                        hours++;
+                    }
+                }
+            }
+
+            let h = hours < 10 ? "0" + hours : hours;
+            let m = minutes < 10 ? "0" + minutes : minutes;
+            let s = seconds < 10 ? "0" + seconds : seconds;
+            let ms = milliseconds < 10 ? "00" + milliseconds :
+                     milliseconds < 100 ? "0" + milliseconds : milliseconds;
+
+            document.getElementById("hours").innerText = h;
+            document.getElementById("minutes").innerText = m;
+            document.getElementById("seconds").innerText = s;
+            document.getElementById("milliseconds").innerText = ms;
         }
-    }
-
-    let h = hours < 10 ? "0" + hours : hours;
-    let m = minutes < 10 ? "0" + minutes : minutes;
-    let s = seconds < 10 ? "0" + seconds : seconds;
-    let ms = 
-        milliseconds < 10
-        ? "00" + milliseconds
-        : milliseconds < 100
-        ? "0" + milliseconds
-        : milliseconds;
-
-    timeRef.innerHTML = `${h} : ${m} : ${s} : ${ms}`;
-
-}
     </script>
-    <p class="Marka">&copy; 2024 IT team. Все права защищены.</p>
 </body>
 </html>
