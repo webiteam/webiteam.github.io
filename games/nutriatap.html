@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Игра: Тапай по Нутрии</title>
+    <style>
+    body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+}
+
+.nutri-circle {
+    width: 300px;
+    height: 300px;
+    background-image: url('/Users/evgeny/Desktop/generated_image.png'); /* Замените на ссылку на изображение Нутри */
+    background-size: cover;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    margin: 20px auto;
+    transition: transform 0.1s;
+    color: cadetblue;
+}
+.nutri-circle:hover {
+    transform: scale(1.1);
+}
+
+.score {
+    font-size: 24px;
+    margin-top: 20px;
+}
+.scoreboard {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.scoreboard img {
+    width: 50px; /* Установите нужный размер изображения */
+    height: 50px;
+    margin-right: 10px;
+    
+}
+
+.score2 {
+    font-size: 24px;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Тапай по Нутрии!</h1>
+        <div class="score">Счет: <span id="score">0</span></div>
+        <div id="nutri" class="nutri-circle"></div>ъ
+    </div>
+    <div id="scoreboard" class="scoreboard">
+        <img src="nutria.jpeg" alt="Score" id="score-image">
+        <span id="score2">0</span>
+    </div>
+    <script>
+  let score = 0;
+const scoreDisplay = document.getElementById('score');
+const nutriCircle = document.getElementById('nutri');
+
+// Обработчик клика по кругу
+nutriCircle.addEventListener('click', () => {
+    score++;
+    
+    // Увеличение счета на 1 при достижении 10
+    if (score === 10) {
+        score2 += 1; // Увеличиваем счет на 1
+    }
+
+    scoreDisplay.textContent = score;
+});</script>
+</body>
