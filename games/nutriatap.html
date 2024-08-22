@@ -1,89 +1,157 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Игра: Тапай по Нутрии</title>
+  </head>
     <style>
-    body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
+        html,
+body {
+  margin: 0;
+  height: 100%;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1c1f24;
 }
 
-.container {
-    text-align: center;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.nutri-circle {
-    width: 300px;
-    height: 300px;
-    background-image: url('/Users/evgeny/Desktop/generated_image.png'); /* Замените на ссылку на изображение Нутри */
-    background-size: cover;
-    border-radius: 50%;
-    cursor: pointer;
-    position: relative;
-    margin: 20px auto;
-    transition: transform 0.1s;
-    color: cadetblue;
-}
-.nutri-circle:hover {
-    transform: scale(1.1);
+.header img {
+  width: 50px;
+  height: 50px;
+  margin-right: 14px;
 }
 
 .score {
-    font-size: 24px;
-    margin-top: 20px;
-}
-.scoreboard {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    align-items: center;
+  color: #fff;
+  text-align: center;
+  font-size: 36px;
+  font-weight: 800;
+  user-select: none;
 }
 
-.scoreboard img {
-    width: 50px; /* Установите нужный размер изображения */
-    height: 50px;
-    margin-right: 10px;
-    
+.circle {
+  position: relative;
 }
 
-.score2 {
-    font-size: 24px;
+.circle img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 16px 0px rgba(67, 6, 6, 0.05);
+  transition: transform 0.2s ease;
+  --tiltX: 0deg;
+  --tiltY: 0deg;
+  transform: rotateX(var(--tiltX)) rotateY(var(--tiltY));
 }
-</style>
-</head>
-<body>
-    <div class="container">
-        <h1>Тапай по Нутрии!</h1>
-        <div class="score">Счет: <span id="score">0</span></div>
-        <div id="nutri" class="nutri-circle"></div>ъ
+
+.plus-one {
+  position: absolute;
+  font-family: Inter;
+  text-shadow: 0px 0px 4px rgba(211, 155, 25, 0.25);
+  font-size: 24px;
+  font-weight: 800;
+  background: linear-gradient(180deg, #e8c547 0%, #ef882b 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  pointer-events: none;
+  user-select: none;
+  animation: move-up 2s forwards;
+}
+
+@keyframes move-up {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+    </style>
+  <body>
+    <div class="game">
+      <div class="header">
+        <img src="img/free-png.ru-53-370x370.png" alt="coin" />
+        <h2 class="score" id="score">42</h2>
+      </div>
+      <div class="circle">
+        <img id="circle" src="img/generated_image.png" alt="frog" />
+      </div>
     </div>
-    <div id="scoreboard" class="scoreboard">
-        <img src="nutria.jpeg" alt="Score" id="score-image">
-        <span id="score2">0</span>
-    </div>
-    <script>
-  let score = 0;
-const scoreDisplay = document.getElementById('score');
-const nutriCircle = document.getElementById('nutri');
+    <script>const $circle = document.querySelector('#circle')
+const $score = document.querySelector('#score')
 
-// Обработчик клика по кругу
-nutriCircle.addEventListener('click', () => {
-    score++;
-    
-    // Увеличение счета на 1 при достижении 10
-    if (score === 10) {
-        score2 += 1; // Увеличиваем счет на 1
-    }
+function start() {
+  setScore(getScore())
+  setImage()
+}
 
-    scoreDisplay.textContent = score;
-});</script>
-</body>
+function setScore(score) {
+  localStorage.setItem('score', score)
+  $score.textContent = score
+}
+
+function setImage() {
+  if (getScore() >= 50) {
+    $circle.setAttribute('src','img/generated_image.png ')
+  }
+}
+
+function getScore() {
+  return Number(localStorage.getItem('score')) ?? 0
+}
+
+function addOne() {
+  setScore(getScore() + 1)
+  setImage()
+}
+
+$circle.addEventListener('click', (event) => {
+  const rect = $circle.getBoundingClientRect()
+
+  const offfsetX = event.clientX - rect.left - rect.width / 2
+  const offfsetY = event.clientY - rect.top - rect.height / 2
+
+  const DEG = 40
+
+  const tiltX = (offfsetY / rect.height) * DEG
+  const tiltY = (offfsetX / rect.width) * -DEG
+
+  $circle.style.setProperty('--tiltX', `${tiltX}deg`)
+  $circle.style.setProperty('--tiltY', `${tiltY}deg`)
+
+  setTimeout(() => {
+    $circle.style.setProperty('--tiltX', `0deg`)
+    $circle.style.setProperty('--tiltY', `0deg`)
+  }, 300)
+
+  const plusOne = document.createElement('div')
+  plusOne.classList.add('plus-one')
+  plusOne.textContent = '+1'
+  plusOne.style.left = `${event.clientX - rect.left}px`
+  plusOne.style.top = `${event.clientY - rect.top}px`
+
+  $circle.parentElement.appendChild(plusOne)
+
+  addOne()
+
+  setTimeout(() => {
+    plusOne.remove()
+  }, 2000)
+})
+
+start()</script>
+  </body>
+</html>
