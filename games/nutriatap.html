@@ -83,11 +83,11 @@ body {
   <body>
     <div class="game">
       <div class="header">
-        <img src="img/free-png.ru-53-370x370.png" alt="coin" />
+        <img src="free-png.ru-53-370x370.png" alt="coin" />
         <h2 class="score" id="score">42</h2>
       </div>
       <div class="circle">
-        <img id="circle" src="img/generated_image.png" alt="frog" />
+        <img id="circle" src="generated_image.png" alt="frog" />
       </div>
     </div>
     <script>const $circle = document.querySelector('#circle')
@@ -105,7 +105,7 @@ function setScore(score) {
 
 function setImage() {
   if (getScore() >= 50) {
-    $circle.setAttribute('src','img/generated_image.png ')
+    $circle.setAttribute('src','generated_image.png ')
   }
 }
 
