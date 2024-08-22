@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NoteApp</title>
-    <link rel="shortcut icon" href="DALL·E 2024-08-15 09.50.25 - A minimalist logo design for a team called 'WEB IT Team' that creates web applications and web games like Snake, Tic-Tac-Toe, and web browsers. The lo.webp">
+      <link rel="shortcut icon" href="DALL·E 2024-08-15 09.50.25 - A minimalist logo design for a team called 'WEB IT Team' that creates web applications and web games like Snake, Tic-Tac-Toe, and web browsers. The lo.webp">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -274,7 +274,7 @@
             noteList.innerHTML = '';
 
             notes
-                .filter(note => note.title.toLowerCase().includes(searchTerm))
+                .filter(note => note.title.toLowerCase().includes(searchTerm) || note.text.toLowerCase().includes(searchTerm))
                 .forEach(note => {
                     const li = document.createElement('li');
                     li.innerHTML = `
@@ -297,3 +297,4 @@
 
 </body>
 </html>
+
